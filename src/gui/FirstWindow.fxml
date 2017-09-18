@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="834.0" prefWidth="1277.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartController">
+   <children>
+      <ChoiceBox fx:id="choiceBoxStart" layoutX="564.0" layoutY="405.0" prefWidth="150.0" />
+      <Label layoutX="561.0" layoutY="307.0" text="Choose user:">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button fx:id="enterButton" layoutX="603.0" layoutY="521.0" mnemonicParsing="false" onAction="#enter" prefHeight="25.0" prefWidth="71.0" text="Enter" />
+   </children>
+</AnchorPane>

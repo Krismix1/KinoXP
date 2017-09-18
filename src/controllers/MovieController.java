@@ -40,12 +40,28 @@ public class MovieController implements CRUDController<Integer, Movie> {
             List<Movie> movies = new LinkedList<>();
             while (values.next()) {
                 Movie movie = new Movie();
+
+                int id = values.getInt(1); // id column
+                String title = values.getString(2); // title column
+                int categoryId = values.getInt(3); // category_id column
+                int minimumAge = values.getInt(4); // minimum_age column
+                int duration = values.getInt(5); // duration column
+
+                movie.setId(id);
+                movie.setTitle(title);
+                CategoryController categoryController = new CategoryController();
+                movie.setCategory(categoryController.get(categoryId));
+                movie.setMinimum_age(minimumAge);
+                movie.setDuration(duration);
+
                 movies.add(movie);
             }
+
             return movies;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 

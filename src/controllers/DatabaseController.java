@@ -8,10 +8,10 @@ import java.sql.SQLException;
  * Created by Tibi on 18/09/2017.
  */
 public class DatabaseController {
-    private final static String URL = "";
-    private final static String DB_NAME = "";
-    private final static String USER = "";
-    private final static String PASS = "";
+    private final static String URL = "jdbc:mysql://52.15.193.92:3306/";
+    private final static String DB_NAME = "KinoXp";
+    private final static String USER = "tibi";
+    private final static String PASS = "tibi";
 
     public static Connection getConnection() {
         try {

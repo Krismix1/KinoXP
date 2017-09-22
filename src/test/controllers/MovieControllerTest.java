@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.MovieController;
 import models.Category;
 import org.junit.jupiter.api.Test;
 

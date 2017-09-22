@@ -1,5 +1,7 @@
 package models;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.time.LocalDateTime;
 
 /**

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookingOptionsController">
+   <children>
+      <RadioButton fx:id="existingCustomer" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Existing Customer">
+         <toggleGroup>
+            <ToggleGroup fx:id="customer_type" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="newCustomer" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" text="New Customer" toggleGroup="$customer_type" />
+      <TextField fx:id="existingCustomer_userId" layoutX="14.0" layoutY="42.0" promptText="User ID" />
+      <TextField fx:id="newCustomer_name" layoutX="14.0" layoutY="120.0" promptText="Name" />
+      <TextField fx:id="newCustomer_email" layoutX="14.0" layoutY="157.0" promptText="Email" />
+      <Button layoutX="62.0" layoutY="207.0" mnemonicParsing="false" onAction="#bookShow" text="Book" />
+   </children>
+</Pane>

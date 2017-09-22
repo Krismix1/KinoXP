@@ -4,14 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import logic.MovieRepository;
+import logic.SceneManager;
+import logic.ShowsRepository;
+import models.Show;
 
-import javax.swing.*;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.ParseException;
-
 
 
 /**
@@ -20,44 +23,45 @@ import java.text.ParseException;
 public class AdminController {
 
     @FXML
-    private javafx.scene.control.TextField movieID;
+    private TextField movieID;
     @FXML
-    private javafx.scene.control.TextField price;
+    private TextField price;
     @FXML
-    private javafx.scene.control.DatePicker date;
+    private DatePicker date;
     @FXML
-    private javafx.scene.control.TextField theater;
+    private TextField theater;
     @FXML
-    private javafx.scene.control.TextField availableSeats;
+    private TextField availableSeats;
     @FXML
-    private javafx.scene.control.ComboBox hour;
+    private ComboBox<String> hour;
     @FXML
-    private javafx.scene.control.ComboBox minutes;
-
-
-
+    private ComboBox<String> minutes;
 
     @FXML
-    public void addShow(ActionEvent actionEvent) throws ParseException {
-
-
+    private void addShow(ActionEvent actionEvent) throws ParseException {
         String movie_id = movieID.getText();
-        String hour1 = (String) hour.getValue();
-        String minute1 = (String) minutes.getValue();
+        String hour1 = hour.getValue();
+        String minute1 = minutes.getValue();
         String sqlTime = hour1 + ":" + minute1;
 
-
-        if (hour1 == null || minute1 == null ||  date.getValue() == null || movie_id.isEmpty() ||
-           theater.getText().isEmpty() || availableSeats.getText().isEmpty() || price.getText().isEmpty() ) {
-            JOptionPane.showMessageDialog(null,"Please put all values u dip");
+        if (hour1 == null || minute1 == null || date.getValue() == null || movie_id.isEmpty() ||
+                theater.getText().isEmpty() || availableSeats.getText().isEmpty() || price.getText().isEmpty()) {
+            SceneManager.getInstance().displayInformation(null, null, "Please put all values u dip");
         } else {
-            java.sql.Date sqlDate = java.sql.Date.valueOf(date.getValue());
+            System.out.println(date.getValue() + " " +sqlTime);
+            Timestamp dateTime = Timestamp.valueOf(date.getValue() + " " +sqlTime+":00");
             int theater_ = Integer.parseInt(theater.getText());
             int available_seats = Integer.parseInt(availableSeats.getText());
             double price_ = Double.parseDouble(price.getText());
 
+            Show show = new Show();
+            show.setAvailableSeats(available_seats);
+            show.setPrice(price_);
+            show.setDateTime(dateTime.toLocalDateTime());
+            show.setTheater(theater_);
+            show.setMovie(MovieRepository.instance.get(Integer.parseInt(movie_id)));
 
-             addActivity(movie_id, sqlDate, theater_, available_seats, price_, sqlTime);
+            ShowsRepository.instance.save(show);
         }
     }
 
@@ -65,42 +69,11 @@ public class AdminController {
     public void loadHoursToCombo(MouseEvent mouseEvent) {
         ObservableList<String> hours = FXCollections.observableArrayList();
         ObservableList<String> minute = FXCollections.observableArrayList();
-        for (int i = 0; i <= 24; i++) {
+        for (int i = 0; i < 24; i++) {
             hours.add(Integer.toString(i));
         }
         hour.setItems(hours);
-        minute.addAll("00","15","30","45");
+        minute.addAll("00", "15", "30", "45");
         minutes.setItems(minute);
     }
-
-
-
-    public static void addActivity(String movie_id, java.sql.Date date, int theater, int available_seats, double price, String sqlTime) {
-
-
-        try {
-            Connection con = DatabaseController.getConnection();
-            Statement stmt = con.createStatement();
-
-            String sql = "INSERT INTO shows " +
-                    "VALUES " +
-                    "(NULL, "
-                    +"'"+ movie_id +"'  ,"
-                    +"'"+ date +" " + sqlTime +  "'  ,"
-                    +"'"+ theater      +"'  ,"
-                    +"'"+ available_seats +"'  ,"
-                    +"'"+ price      +"'  "
-                    +");                      ";
-
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
 }

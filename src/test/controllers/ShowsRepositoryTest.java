@@ -1,5 +1,6 @@
 package controllers;
 
+import logic.ShowsRepository;
 import models.Show;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by Chris on 22-Sep-17.
  */
-class ShowsControllerTest {
+class ShowsRepositoryTest {
     @Test
     void getAll() {
-        ShowsController showsController = new ShowsController();
+        ShowsRepository showsController = ShowsRepository.instance;
         List<Show> shows = showsController.getAll();
         assertNotNull(shows);
-        System.out.println(shows);
     }
 
 }

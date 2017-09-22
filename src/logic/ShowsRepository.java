@@ -1,12 +1,9 @@
-package controllers;
+package logic;
 
 import models.Movie;
 import models.Show;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,10 +11,30 @@ import java.util.List;
 /**
  * Created by Chris on 22-Sep-17.
  */
-public class ShowsController implements CRUDController<Integer, Show>{
+public class ShowsRepository implements CRUDRepository<Integer, Show> {
+
+    public static final ShowsRepository instance = new ShowsRepository();
+    private ShowsRepository(){}
+
     @Override
     public Show save(Show entity) {
-        throw new UnsupportedOperationException();
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO shows VALUES (NULL, ?, ?, ?, ?, ?)");
+
+            stmt.setInt(1, entity.getMovie().getId());
+            stmt.setTimestamp(2, Timestamp.valueOf(entity.getDateTime()));
+            stmt.setInt(3, entity.getTheater());
+            stmt.setInt(4, entity.getAvailableSeats());
+            stmt.setDouble(5, entity.getPrice());
+
+            stmt.execute();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -27,7 +44,7 @@ public class ShowsController implements CRUDController<Integer, Show>{
 
     @Override
     public List<Show> getAll() {
-        Connection con = DatabaseController.getConnection();
+        Connection con = DatabaseConnection.getConnection();
         try {
             Statement query = con.createStatement();
             ResultSet values = query.executeQuery("SELECT * FROM shows");
@@ -36,7 +53,7 @@ public class ShowsController implements CRUDController<Integer, Show>{
                 Show show = new Show();
 
                 int id = values.getInt(1); // id column
-                MovieController movieController = new MovieController();
+                MovieRepository movieController = MovieRepository.instance;
                 Movie movie = movieController.get(values.getInt(2)); // movie
                 LocalDateTime dateTime = values.getTimestamp(3).toLocalDateTime(); // date and time of the show
                 int theater = values.getInt(4); // theater number

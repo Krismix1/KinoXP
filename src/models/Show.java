@@ -1,7 +1,5 @@
 package models;
 
-import javafx.beans.property.SimpleStringProperty;
-
 import java.time.LocalDateTime;
 
 /**
@@ -61,5 +59,13 @@ public class Show {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getMovieTitle() {
+        return movie.getTitle();
+    }
+
+    public String getCategory() {
+        return movie.getCategory().getName();
     }
 }

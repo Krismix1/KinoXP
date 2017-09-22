@@ -1,4 +1,4 @@
-package controllers;
+package logic;
 
 import models.Category;
 
@@ -11,7 +11,10 @@ import java.util.List;
 /**
  * Created by Chris on 18-Sep-17.
  */
-public class CategoryController implements CRUDController<Integer, Category> {
+public class CategoryRepository implements CRUDRepository<Integer, Category> {
+    public static final CategoryRepository instance = new CategoryRepository();
+    private CategoryRepository(){}
+
 
     @Override
     public Category save(Category entity) {
@@ -20,7 +23,7 @@ public class CategoryController implements CRUDController<Integer, Category> {
 
     @Override
     public Category get(Integer id) {
-        Connection con = DatabaseController.getConnection();
+        Connection con = DatabaseConnection.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement("SELECT `name` FROM categories WHERE id = ?");
             statement.setInt(1, id);

@@ -1,11 +1,11 @@
-package controllers;
+package logic;
 
 import java.util.List;
 
 /**
  * Created by Chris on 18-Sep-17.
  */
-public interface CRUDController<K, E> {
+public interface CRUDRepository<K, E> {
 
     public E save(E entity);
 

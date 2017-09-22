@@ -1,4 +1,4 @@
-package controllers;
+package logic;
 
 import models.Category;
 import models.Movie;
@@ -11,7 +11,10 @@ import java.util.stream.Collectors;
 /**
  * Created by Chris on 18-Sep-17.
  */
-public class MovieController implements CRUDController<Integer, Movie> {
+public class MovieRepository implements CRUDRepository<Integer, Movie> {
+
+    public static final MovieRepository instance = new MovieRepository();
+    private MovieRepository(){}
 
     public List<Movie> getByCategory(Category category) {
         List<Movie> allMovies = getAll();
@@ -28,7 +31,7 @@ public class MovieController implements CRUDController<Integer, Movie> {
 
     @Override
     public Movie get(Integer id) {
-        Connection con = DatabaseController.getConnection();
+        Connection con = DatabaseConnection.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement("SELECT * FROM movies WHERE id = ?");
             statement.setInt(1, id);
@@ -43,8 +46,8 @@ public class MovieController implements CRUDController<Integer, Movie> {
 
                 movie.setId(id);
                 movie.setTitle(title);
-                CategoryController categoryController = new CategoryController();
-                movie.setCategory(categoryController.get(categoryId));
+                CategoryRepository categoryRepository = CategoryRepository.instance;
+                movie.setCategory(categoryRepository.get(categoryId));
                 movie.setMinimum_age(minimumAge);
                 movie.setDuration(duration);
 
@@ -61,7 +64,7 @@ public class MovieController implements CRUDController<Integer, Movie> {
 
     @Override
     public List<Movie> getAll() {
-        Connection con = DatabaseController.getConnection();
+        Connection con = DatabaseConnection.getConnection();
         try {
             Statement query = con.createStatement();
             ResultSet values = query.executeQuery("SELECT * FROM movies");
@@ -77,8 +80,8 @@ public class MovieController implements CRUDController<Integer, Movie> {
 
                 movie.setId(id);
                 movie.setTitle(title);
-                CategoryController categoryController = new CategoryController();
-                movie.setCategory(categoryController.get(categoryId));
+                CategoryRepository categoryRepository = CategoryRepository.instance;
+                movie.setCategory(categoryRepository.get(categoryId));
                 movie.setMinimum_age(minimumAge);
                 movie.setDuration(duration);
 

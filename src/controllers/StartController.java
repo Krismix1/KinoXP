@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class StartController {
 
     @FXML
-    private ChoiceBox choiceBoxStart;
+    private ChoiceBox<String> choiceBoxStart;
 
     @FXML
     private Button enterButton;
@@ -26,26 +26,24 @@ public class StartController {
     private ObservableList<String> choiceStart = FXCollections.observableArrayList("Admin", "User");
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         choiceBoxStart.setItems(choiceStart);
 
     }
 
     @FXML
-    public void enter(ActionEvent event) throws Exception{
-        if (choiceBoxStart.getValue().equals("Admin")){
-            Node node=(Node) event.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
+    private void enter(ActionEvent event) throws Exception {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        if (choiceBoxStart.getValue().equals("Admin")) {
             Parent root = FXMLLoader.load(getClass().getResource("/gui/AdminLoginWindow.fxml"));
-            Scene scene = new Scene(root,1024,720);
+            Scene scene = new Scene(root, 1024, 720);
             stage.setScene(scene);
             stage.show();
-
-        }else{
-            Node node=(Node) event.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
+        } else {
             Parent root = FXMLLoader.load(getClass().getResource("/gui/CustomerWindow.fxml"));
-            Scene scene = new Scene(root,1024,720);
+            Scene scene = new Scene(root, 1024, 720);
             stage.setScene(scene);
             stage.show();
         }

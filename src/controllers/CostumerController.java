@@ -6,14 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Movie;
 import models.Show;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 public class CostumerController {
     @FXML
@@ -36,7 +29,6 @@ public class CostumerController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("movie"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("movie"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
-
         moviesTable.setItems(movieData);
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 public class CategoryController implements CRUDController<Integer, Category> {
 
     @Override
-    public void save(Category entity) {
+    public Category save(Category entity) {
         throw new UnsupportedOperationException();
     }
 

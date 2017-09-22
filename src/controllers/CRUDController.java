@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface CRUDController<K, E> {
 
-    public void save(E entity);
+    public E save(E entity);
 
     public E get(K id);
 

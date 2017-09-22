@@ -49,4 +49,12 @@ public class Movie {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", category=" + category +
+                '}';
+    }
 }

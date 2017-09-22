@@ -22,13 +22,41 @@ public class MovieController implements CRUDController<Integer, Movie> {
     }
 
     @Override
-    public void save(Movie entity) {
+    public Movie save(Movie entity) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public Movie get(Integer id) {
-        throw new UnsupportedOperationException();
+        Connection con = DatabaseController.getConnection();
+        try {
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM movies WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Movie movie = new Movie();
+
+                String title = resultSet.getString(2); // title column
+                int categoryId = resultSet.getInt(3); // category_id column
+                int minimumAge = resultSet.getInt(4); // minimum_age column
+                int duration = resultSet.getInt(5); // duration column
+
+                movie.setId(id);
+                movie.setTitle(title);
+                CategoryController categoryController = new CategoryController();
+                movie.setCategory(categoryController.get(categoryId));
+                movie.setMinimum_age(minimumAge);
+                movie.setDuration(duration);
+
+                return movie;
+            }
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
     }
 
     @Override

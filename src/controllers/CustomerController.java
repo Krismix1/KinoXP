@@ -27,7 +27,6 @@ public class CustomerController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
-
         moviesTable.setItems(movieData);
     }
 

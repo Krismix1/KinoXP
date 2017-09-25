@@ -10,13 +10,13 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
    <children>
       <Button layoutX="294.0" layoutY="404.0" mnemonicParsing="false" onAction="#addShow" text="Save" />
-      <TextField fx:id="movieID" layoutX="80.0" layoutY="135.0" promptText="Movie ID" />
+      <ComboBox fx:id="movies" layoutX="80.0" layoutY="135.0"/>
       <TextField fx:id="price" layoutX="389.0" layoutY="135.0" promptText="Price 0.00" />
       <TextField fx:id="availableSeats" layoutX="389.0" layoutY="196.0" promptText="Available seats" />
       <TextField fx:id="theater" layoutX="389.0" layoutY="256.0" promptText="Theater" />
       <Label layoutX="80.0" layoutY="87.0" text="Create activity" />
       <DatePicker fx:id="date" editable="false" layoutX="80.0" layoutY="196.0" promptText="9/22/2017" />
-      <Label layoutX="80.0" layoutY="114.0" text="Movie ID" />
+      <Label layoutX="80.0" layoutY="114.0" text="Movie" />
       <Label layoutX="389.0" layoutY="114.0" text="Price" />
       <Label layoutX="80.0" layoutY="175.0" text="Date" />
       <Label layoutX="389.0" layoutY="175.0" text="Seats" />

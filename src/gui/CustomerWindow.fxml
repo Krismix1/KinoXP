@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -24,7 +28,7 @@
                       <TableColumn fx:id="dateColumn" prefWidth="116.0" text="Date" />
                     </columns>
                   </TableView>
-                  <Button layoutX="347.0" layoutY="259.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="124.0" text="Details">
+                  <Button fx:id="detailsButton" layoutX="347.0" layoutY="259.0" mnemonicParsing="false" onAction="#showDetails" prefHeight="66.0" prefWidth="124.0" text="Details">
                      <font>
                         <Font size="16.0" />
                      </font>

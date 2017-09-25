@@ -30,7 +30,7 @@ public class BookingOptionsController {
     }
 
     public void bookShowExistingCustomer() throws Exception {
-        bookingLogic.bookShowExistingCustomer(19, Integer.parseInt(existingCustomer_userId.getText()));
+        bookingLogic.bookShowExistingCustomer(Integer.parseInt(existingCustomer_userId.getText()), CustomerController.showP.getId());
     }
 
     public void bookShowNewCustomer() throws Exception {

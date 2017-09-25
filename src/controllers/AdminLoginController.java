@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import logic.SceneManager;
 import models.Admin;
 
 
@@ -41,6 +42,8 @@ public class AdminLoginController {
             Scene scene = new Scene(root, 1024, 720);
             stage.setScene(scene);
             stage.show();
+        } else {
+            SceneManager.getInstance().displayError(null,null, "Wrong password!");
         }
     }
 }

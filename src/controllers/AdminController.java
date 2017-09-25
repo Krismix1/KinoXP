@@ -4,13 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 import logic.MovieRepository;
 import logic.SceneManager;
 import logic.ShowsRepository;
+import models.Movie;
 import models.Show;
 
 import java.sql.Timestamp;
@@ -23,7 +24,7 @@ import java.text.ParseException;
 public class AdminController {
 
     @FXML
-    private TextField movieID;
+    private ComboBox<Movie> movies;
     @FXML
     private TextField price;
     @FXML
@@ -39,17 +40,16 @@ public class AdminController {
 
     @FXML
     private void addShow(ActionEvent actionEvent) throws ParseException {
-        String movie_id = movieID.getText();
+        Movie movie = this.movies.getValue();
         String hour1 = hour.getValue();
         String minute1 = minutes.getValue();
         String sqlTime = hour1 + ":" + minute1;
 
-        if (hour1 == null || minute1 == null || date.getValue() == null || movie_id.isEmpty() ||
+        if (hour1 == null || minute1 == null || date.getValue() == null || movie == null ||
                 theater.getText().isEmpty() || availableSeats.getText().isEmpty() || price.getText().isEmpty()) {
             SceneManager.getInstance().displayInformation(null, null, "Please put all values u dip");
         } else {
-            System.out.println(date.getValue() + " " +sqlTime);
-            Timestamp dateTime = Timestamp.valueOf(date.getValue() + " " +sqlTime+":00");
+            Timestamp dateTime = Timestamp.valueOf(date.getValue() + " " + sqlTime + ":00");
             int theater_ = Integer.parseInt(theater.getText());
             int available_seats = Integer.parseInt(availableSeats.getText());
             double price_ = Double.parseDouble(price.getText());
@@ -59,9 +59,19 @@ public class AdminController {
             show.setPrice(price_);
             show.setDateTime(dateTime.toLocalDateTime());
             show.setTheater(theater_);
-            show.setMovie(MovieRepository.instance.get(Integer.parseInt(movie_id)));
+            show.setMovie(movie);
 
             ShowsRepository.instance.save(show);
+
+            SceneManager.getInstance().displayInformation("Show creation", null, "The show was created.");
+
+            price.clear();
+            date.setValue(null);
+            theater.clear();
+            availableSeats.clear();
+            hour.setValue(null);
+            minutes.setValue(null);
+            movies.setValue(null);
         }
     }
 
@@ -75,5 +85,28 @@ public class AdminController {
         hour.setItems(hours);
         minute.addAll("00", "15", "30", "45");
         minutes.setItems(minute);
+    }
+
+    @FXML
+    private void initialize() {
+        movies.setItems(FXCollections.observableList(MovieRepository.instance.getAll()));
+//        movies.setCellFactory(new Callback<ListView<Movie>, ListCell<Movie>>() {
+//            @Override
+//            public ListCell<Movie> call(ListView<Movie> param) {
+//                final ListCell<Movie> cell = new ListCell<Movie>() {
+//                    @Override
+//                    public void updateItem(Movie item,
+//                                           boolean empty) {
+//                        super.updateItem(item, empty);
+//                        if (item != null) {
+//                            setText(item.getTitle());
+//                        } else {
+//                            setText(null);
+//                        }
+//                    }
+//                };
+//                return cell;
+//            }
+//        });
     }
 }

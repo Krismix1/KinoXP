@@ -52,9 +52,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "title='" + title + '\'' +
-                ", category=" + category +
-                '}';
+        return title;
     }
 }

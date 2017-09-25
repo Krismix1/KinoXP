@@ -1,11 +1,10 @@
 package logic;
 
 import models.Category;
+import models.Movie;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,7 +43,30 @@ public class CategoryRepository implements CRUDRepository<Integer, Category> {
 
     @Override
     public List<Category> getAll() {
-        throw new UnsupportedOperationException();
+        Connection con = DatabaseConnection.getConnection();
+        try {
+            Statement query = con.createStatement();
+            ResultSet values = query.executeQuery("SELECT * FROM categories");
+            List<Category> categories = new LinkedList<>();
+            while (values.next()) {
+                Category category = new Category("");
+
+                int id = values.getInt(1); // id column
+                String name = values.getString(2); // title column
+
+                category.setId(id);
+                category.setName(name);
+                CategoryRepository categoryRepository = CategoryRepository.instance;
+
+                categories.add(category);
+            }
+
+            return categories;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override

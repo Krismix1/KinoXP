@@ -1,5 +1,6 @@
 package logic;
 
+import models.Category;
 import models.Movie;
 import models.Show;
 
@@ -7,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Chris on 22-Sep-17.
@@ -40,6 +42,13 @@ public class ShowsRepository implements CRUDRepository<Integer, Show> {
     @Override
     public Show get(Integer id) {
         throw new UnsupportedOperationException();
+    }
+
+    public List<Show> getByCategory(Category category){
+        return getAll()
+                .stream()
+                .filter(show -> show.getMovie().getCategory().equals(category))
+                .collect(Collectors.toList());
     }
 
     @Override

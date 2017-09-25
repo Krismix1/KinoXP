@@ -15,20 +15,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
   <tabs>
     <Tab text="Movies">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="moviesTable" layoutX="51.0" layoutY="14.0" prefHeight="200.0" prefWidth="451.0">
+                  <TableView fx:id="moviesTable" layoutX="51.0" layoutY="14.0" prefHeight="200.0" prefWidth="546.0">
                     <columns>
-                      <TableColumn fx:id="nameColumn" prefWidth="167.0" text="Title" />
-                        <TableColumn fx:id="categoryColumn" prefWidth="167.0" text="Category" />
-                      <TableColumn fx:id="dateColumn" prefWidth="116.0" text="Date" />
+                      <TableColumn fx:id="nameColumn" prefWidth="152.0" text="Title" />
+                        <TableColumn fx:id="categoryColumn" prefWidth="127.0" text="Category" />
+                      <TableColumn fx:id="dateColumn" prefWidth="138.0" text="Date" />
+                        <TableColumn fx:id="actorsColumn" prefWidth="128.0" text="Actors" />
                     </columns>
                   </TableView>
-                  <Button fx:id="detailsButton" layoutX="347.0" layoutY="259.0" mnemonicParsing="false" onAction="#showDetails" prefHeight="66.0" prefWidth="124.0" text="Details">
+                  <Button fx:id="detailsButton" layoutX="446.0" layoutY="259.0" mnemonicParsing="false" onAction="#showDetails" prefHeight="66.0" prefWidth="124.0" text="Details">
                      <font>
                         <Font size="16.0" />
                      </font>

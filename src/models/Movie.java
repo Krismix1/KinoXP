@@ -9,6 +9,7 @@ public class Movie {
     private Category category;
     private int minimum_age;
     private int duration;
+    private String actors;
 
     public Category getCategory() {
         return category;
@@ -49,6 +50,10 @@ public class Movie {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    public String getActors() { return actors; }
+
+    public void setActors(String actors){ this.actors = actors; }
 
     @Override
     public String toString() {

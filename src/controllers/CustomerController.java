@@ -30,13 +30,15 @@ public class CustomerController {
     @FXML
     private TableColumn<Show, String> dateColumn;
     @FXML
+    private TableColumn<Show, String> actorsColumn;
+    @FXML
     private TextField myBookingsUserID;
     @FXML
     private ComboBox myBookings;
     @FXML
     private Button detailsButton;
 
-BookingsLoader bookingsLoader = new BookingsLoader();
+    BookingsLoader bookingsLoader = new BookingsLoader();
 
     public void displayMovies() {
 
@@ -46,6 +48,7 @@ BookingsLoader bookingsLoader = new BookingsLoader();
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        actorsColumn.setCellValueFactory(new PropertyValueFactory<>("actors"));
         moviesTable.setItems(movieData);
     }
 
@@ -88,6 +91,7 @@ BookingsLoader bookingsLoader = new BookingsLoader();
         detailsController.filmCat.setText(show.getMovie().getCategory().getName());
         detailsController.filmLimit.setText(Integer.toString(show.getMovie().getMinimum_age()));
         detailsController.filmDur.setText(Integer.toString(show.getMovie().getDuration()));
+        detailsController.filmActors.setText(show.getMovie().getActors());
         } catch(Exception e) {
             e.printStackTrace();
         }

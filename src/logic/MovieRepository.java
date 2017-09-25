@@ -43,6 +43,7 @@ public class MovieRepository implements CRUDRepository<Integer, Movie> {
                 int categoryId = resultSet.getInt(3); // category_id column
                 int minimumAge = resultSet.getInt(4); // minimum_age column
                 int duration = resultSet.getInt(5); // duration column
+                String actors = resultSet.getString(6); //actors column
 
                 movie.setId(id);
                 movie.setTitle(title);
@@ -50,6 +51,7 @@ public class MovieRepository implements CRUDRepository<Integer, Movie> {
                 movie.setCategory(categoryRepository.get(categoryId));
                 movie.setMinimum_age(minimumAge);
                 movie.setDuration(duration);
+                movie.setActors(actors);
 
                 return movie;
             }
@@ -77,6 +79,7 @@ public class MovieRepository implements CRUDRepository<Integer, Movie> {
                 int categoryId = values.getInt(3); // category_id column
                 int minimumAge = values.getInt(4); // minimum_age column
                 int duration = values.getInt(5); // duration column
+                String actors = values.getString(6); //actors column
 
                 movie.setId(id);
                 movie.setTitle(title);
@@ -84,6 +87,7 @@ public class MovieRepository implements CRUDRepository<Integer, Movie> {
                 movie.setCategory(categoryRepository.get(categoryId));
                 movie.setMinimum_age(minimumAge);
                 movie.setDuration(duration);
+                movie.setActors(actors);
 
                 movies.add(movie);
             }

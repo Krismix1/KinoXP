@@ -68,4 +68,6 @@ public class Show {
     public String getCategory() {
         return movie.getCategory().getName();
     }
+
+    public String getActors() {return movie.getActors();}
 }

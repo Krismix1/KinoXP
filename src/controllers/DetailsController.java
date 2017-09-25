@@ -16,6 +16,8 @@ public class DetailsController {
     public Label filmLimit;
     @FXML
     public Label filmDur;
+    @FXML
+    public Label filmActors;
 
     @FXML
     public void initialize(){

@@ -15,6 +15,7 @@ import logic.CategoryRepository;
 import logic.SceneManager;
 import logic.ShowsRepository;
 import models.Category;
+import logic.BookingLogic;
 import models.Show;
 
 public class CustomerController {
@@ -104,6 +105,24 @@ public class CustomerController {
             detailsController.filmDur.setText(Integer.toString(show.getMovie().getDuration()));
             detailsController.filmActors.setText(show.getMovie().getActors());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Show showP;
+    @FXML
+    private void book(ActionEvent event) throws Exception {
+        try {
+            Show show = showP =moviesTable.getSelectionModel().getSelectedItem();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/BookingOptions.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.setTitle(show.getMovieTitle());
+            stage.show();
+
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

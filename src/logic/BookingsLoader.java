@@ -1,8 +1,6 @@
 package logic;
 
 
-        import models.Category;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,9 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-
-import java.sql.ResultSet;
 
 /**
  * Created by Vidas on 9/23/2017.
@@ -28,7 +23,7 @@ public class BookingsLoader {
         try {
             Connection con = DatabaseConnection.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT `title`,date_time, price, theater FROM `shows`, `bookings`, `movies` WHERE shows.id = bookings.show_id AND shows.movie_id = movies.id AND bookings.account_id =" + userID );
+            ResultSet rs = stmt.executeQuery("SELECT `title`,date_time, price, theater FROM `shows`, `bookings`, `movies` WHERE shows.id = bookings.show_id AND shows.movie_id = movies.id AND bookings.account_id =" + userID);
             while (rs.next()) {
 
                 userBooking.add(

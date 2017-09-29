@@ -8,11 +8,12 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
   <tabs>
     <Tab text="Movies">
       <content>
@@ -56,5 +57,25 @@
                </children></AnchorPane>
       </content>
     </Tab>
+      <Tab text="Extras">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#loadExtrasToCombo" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="extrasUserID" layoutX="202.0" layoutY="357.0" promptText="UserID" />
+                  <Label layoutX="28.0" layoutY="301.0" prefHeight="21.0" prefWidth="83.0" text="Total items" />
+                  <Label fx:id="totalPriceLabel" layoutX="131.0" layoutY="301.0" prefHeight="21.0" prefWidth="53.0" text=":" />
+                  <Button fx:id="popcornAdd" layoutX="281.0" layoutY="296.0" mnemonicParsing="false" onAction="#addExtaItemAction" text="Add" />
+                  <Button layoutX="271.0" layoutY="396.0" mnemonicParsing="false" onAction="#addExtras" text="Save" />
+                  <TextArea fx:id="extraItemsArea" layoutX="28.0" layoutY="98.0" prefHeight="185.0" prefWidth="301.0" />
+                  <ComboBox fx:id="extraItemsCombo" layoutX="27.0" layoutY="53.0" onMouseClicked="#loadExtrasToCombo" prefHeight="31.0" prefWidth="302.0" />
+                  <Label layoutX="27.0" layoutY="14.0" text="Please choose item:" />
+                  <Button layoutX="152.0" layoutY="296.0" mnemonicParsing="false" onAction="#removeLastExtraItem" text="Remove last" />
+                  <Button layoutX="409.0" layoutY="296.0" mnemonicParsing="false" onAction="#toalPriceAction" text="Calculate total Price" />
+                  <TextArea fx:id="TotalPriceArea" layoutX="408.0" layoutY="221.0" prefHeight="48.0" prefWidth="153.0" />
+                  <Label layoutX="394.0" layoutY="180.0" text="Each extra item cost 10DKK" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
   </tabs>
 </TabPane>

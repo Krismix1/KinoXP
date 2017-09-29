@@ -9,13 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import logic.BookingsLoader;
-import logic.CategoryRepository;
-import logic.SceneManager;
-import logic.ShowsRepository;
+import logic.*;
 import models.Category;
-import logic.BookingLogic;
 import models.Show;
 
 public class CustomerController {
@@ -35,6 +32,16 @@ public class CustomerController {
     private ComboBox myBookings;
     @FXML
     private ChoiceBox<Category> categoryOptions;
+    @FXML
+    private TextField extrasUserID;
+    @FXML
+    private javafx.scene.control.ComboBox extraItemsCombo;
+    @FXML
+    private javafx.scene.control.TextArea extraItemsArea;
+    @FXML
+    private Label totalPriceLabel;
+    @FXML
+    private javafx.scene.control.TextArea TotalPriceArea;
     BookingsLoader bookingsLoader = new BookingsLoader();
 
     public void displayMovies() {
@@ -86,6 +93,86 @@ public class CustomerController {
         displayMovies();
         displayCategories();
     }
+
+
+    @FXML
+    public void addExtras() {
+
+
+
+        String userID = extrasUserID.getText();
+
+        if (userID.isEmpty())
+            SceneManager.getInstance().displayInformation(null, null, "Please put ID u dip");
+        else {
+
+            SceneManager.getInstance().displayInformation(null, null, "Gonna finish this on friday");
+        }
+    }
+
+
+    @FXML
+    public void loadExtrasToCombo(MouseEvent mouseEvent) {
+        ObservableList<String> extras = FXCollections.observableArrayList();
+        extras.addAll("Popcorn", "Sweet", "Drink");
+        extraItemsCombo.setItems(extras);
+    }
+
+    @FXML
+    public void addExtaItemAction(ActionEvent actionEvent) {
+
+        String item = (String) extraItemsCombo.getValue();
+
+        if (extraItemsCombo.getValue()== null) {
+            SceneManager.getInstance().displayInformation(null, null, "Please put value u dip");
+        } else {
+            String listString = "";
+
+            for (String s : ExtraItems.addExtraShit(item)) {
+                listString += s + "\n";
+                System.out.println();
+            }
+            extraItemsArea.setText(listString);
+            String sizes = Integer.toString(ExtraItems.items.size());
+            totalPriceLabel.setText(sizes);
+            System.out.println(sizes);
+        }
+    }
+
+
+    @FXML//Remove last extra item
+    public void removeLastExtraItem(ActionEvent actionEvent) {
+        ExtraItems.items.remove(ExtraItems.items.size() - 1);
+        extraItemsArea.setText("");
+        String listString = "";
+
+        for (String s : ExtraItems.items) {
+            listString += s + "\n";
+            System.out.println();
+        }
+        extraItemsArea.setText(listString);
+        String sizes = Integer.toString(ExtraItems.items.size());
+        totalPriceLabel.setText(sizes);
+    }
+
+
+
+    @FXML//calculate total price
+    public void toalPriceAction(ActionEvent actionEvent) {
+        if (totalPriceLabel == null)
+            SceneManager.getInstance().displayInformation(null, null, "Please add extra items u dip");
+        else {
+
+            int totalNumber = Integer.parseInt(totalPriceLabel.getText());
+            int totalPrice = totalNumber * 10;
+
+            TotalPriceArea.setText(Integer.toString(totalPrice) + " DKK");
+
+
+        }
+    }
+
+
 
     @FXML
     private void showDetails(ActionEvent event) throws Exception {

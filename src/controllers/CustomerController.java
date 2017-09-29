@@ -43,6 +43,8 @@ public class CustomerController {
     @FXML
     private javafx.scene.control.TextArea TotalPriceArea;
     BookingsLoader bookingsLoader = new BookingsLoader();
+    ExtraItems extraItems = new ExtraItems();
+
 
     public void displayMovies() {
 
@@ -98,15 +100,17 @@ public class CustomerController {
     @FXML
     public void addExtras() {
 
-
+        int totalItems = Integer.parseInt(totalPriceLabel.getText());
+        int AccountID = Integer.parseInt(extrasUserID.getText());
+        double FinalPrice = Double.parseDouble(TotalPriceArea.getText());
 
         String userID = extrasUserID.getText();
 
         if (userID.isEmpty())
             SceneManager.getInstance().displayInformation(null, null, "Please put ID u dip");
         else {
+            extraItems.addExtraStuff(totalItems, AccountID, FinalPrice);
 
-            SceneManager.getInstance().displayInformation(null, null, "Gonna finish this on friday");
         }
     }
 
@@ -166,7 +170,7 @@ public class CustomerController {
             int totalNumber = Integer.parseInt(totalPriceLabel.getText());
             int totalPrice = totalNumber * 10;
 
-            TotalPriceArea.setText(Integer.toString(totalPrice) + " DKK");
+            TotalPriceArea.setText(Integer.toString(totalPrice));
 
 
         }

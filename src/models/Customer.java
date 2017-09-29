@@ -4,7 +4,7 @@ package models;
  * Created by Tibi on 22/09/2017.
  */
 public class Customer {
-    private int id;
+    private int id = -1;
     private String Name;
     private String Email;
 

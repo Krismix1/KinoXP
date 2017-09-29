@@ -15,6 +15,9 @@ import logic.*;
 import models.Category;
 import models.Show;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CustomerController {
     @FXML
     private TableView<Show> moviesTable;
@@ -49,7 +52,11 @@ public class CustomerController {
     public void displayMovies() {
 
         ShowsRepository showsController = ShowsRepository.instance;
-        ObservableList<Show> movieData = FXCollections.observableArrayList(showsController.getAll());
+        List<Show> availableShows = showsController.getAll()
+                .stream()
+                .filter(show -> show.getAvailableSeats() > 0)
+                .collect(Collectors.toList());
+        ObservableList<Show> movieData = FXCollections.observableArrayList(availableShows);
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -80,7 +87,11 @@ public class CustomerController {
     @FXML
     public void displayCategory() {
         Category selected = categoryOptions.getSelectionModel().getSelectedItem();
-        ObservableList<Show> movieData = FXCollections.observableArrayList(ShowsRepository.instance.getByCategory(selected));
+        List<Show> availableShows = ShowsRepository.instance.getByCategory(selected)
+                .stream()
+                .filter(show -> show.getAvailableSeats() > 0)
+                .collect(Collectors.toList());
+        ObservableList<Show> movieData = FXCollections.observableArrayList(availableShows);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
@@ -193,7 +204,7 @@ public class CustomerController {
             detailsController.filmTitle.setText(show.getMovie().getTitle());
             detailsController.filmCat.setText(show.getMovie().getCategory().getName());
             detailsController.filmLimit.setText(Integer.toString(show.getMovie().getMinimum_age()));
-            detailsController.filmDur.setText(Integer.toString(show.getMovie().getDuration()));
+            detailsController.filmDur.setText(Integer.toString(show.getMovie().getDuration()) + " minutes");
             detailsController.filmActors.setText(show.getMovie().getActors());
         } catch (Exception e) {
             e.printStackTrace();
